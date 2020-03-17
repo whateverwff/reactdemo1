@@ -1,15 +1,41 @@
 import React, { Component } from 'react'
 import {
-    Button
-} from "antd"
+    Frame
+} from "./components"
+
+import {
+    Switch,
+    Route,
+    Redirect
+} from "react-router-dom"
+
+import {
+    adminRouter
+} from "./routes"
 
 class App extends Component {
     render() {
         return (
-            <div>
-               app 
-               <Button type="primary">测试</Button>
-            </div>
+            <>
+                <Frame>
+                    <Switch>
+                        {
+                            adminRouter.map(route => {
+                                return (
+                                    <Route 
+                                        key={route.pathname}
+                                        path={route.pathname}
+                                        render={()=>{
+                                            return <route.component {...route} />
+                                        }}
+                                    />
+                                )
+                            })
+                        }
+                        <Redirect to="/admin/tables" />
+                    </Switch>
+                </Frame>
+            </>
         )
     }
 }
