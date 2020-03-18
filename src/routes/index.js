@@ -1,12 +1,12 @@
 import {
     Login,
-    Register
+    Register,
+    Tables,
+    List,
+    Inform,
+    Center
 } from "../views"
 
-import {
-    Tables,
-    List
-} from "../components"
 
 
 //主路由
@@ -28,4 +28,11 @@ export const adminRouter = [{
     pathname:"/admin/tables",
     component:Tables,
     subnavtitle:"表格"
+},{
+    pathname:"/admin/inform",
+    component:Inform,
+    subnavtitle:"我的通知"
+},{
+    pathname:"/admin/center",
+    component:Center
 }]

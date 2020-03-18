@@ -1,0 +1,3 @@
+export default {
+    CHANGE_INFORM_TITLE:"CHANGE_INFORM_TITLE"
+}

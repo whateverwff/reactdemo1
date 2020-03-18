@@ -1,58 +1,83 @@
 import React, { Component } from 'react'
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import {withRouter} from 'react-router-dom'
+import {
+    Layout,
+    Menu,
+    Breadcrumb,
+    Dropdown,
+    message,
+    Badge
+} from 'antd';
+
+import { UserOutlined, LaptopOutlined, NotificationOutlined, DownOutlined } from '@ant-design/icons';
+import { withRouter } from 'react-router-dom'
 import {
     adminRouter
 } from '../../routes'
+
+import "./frame.less"
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 
 
-
+@withRouter
 class Frame extends Component {
-    constructor (props){
+    constructor(props) {
         super(props);
         this.state = {
-            defaultSelectedKeys:''
+            defaultSelectedKeys: ''
         }
-        console.log(this.props)
     }
-    static get(){
-        this.setState({
-            defaultSelectedKeys:this.props.history.location.pathname
-        })
-    }
+
     switchsubnav = ({ item, key, keyPath, domEvent }) => {
-        debugger
+        this.props.history.push(key)
+    }
+    onclickmsgdropdown = ({ key }) => {
+        this.props.history.push(key)
     }
     render() {
         const subnav = adminRouter.filter(item => item.subnavtitle);
-        console.log(this.state)
-        const {defaultSelectedKeys} = this.state;
+        const menu = (
+            <Menu onClick={this.onclickmsgdropdown}>
+                <Menu.Item key="/admin/inform">
+                    <Badge dot>我的通知</Badge>
+                </Menu.Item>
+                <Menu.Item key="/admin/center">个人中心</Menu.Item>
+                <Menu.Item key="/login">退出登录</Menu.Item>
+            </Menu>
+        );
         return (
             <Layout>
-                <Header className="header" style={{ position: 'fixed', zIndex: 1, width: '100%',background:'#fff',borderBottom:'1px solid #dadada' }}>
-                    <div className="logo" />
+                <Header className="header" style={{ position: 'fixed', zIndex: 1, width: '100%', background: '#fff', borderBottom: '1px solid #dadada' }}>
+                    <div className="logo">
+                        logo
+                    </div>
+                    <Dropdown overlay={menu}>
+                        <div className="ant-dropdown-link">
+                            <Badge count={5} offset={['6','0']}>
+                                你好! admin <DownOutlined />
+                            </Badge>
+                            
+                        </div>
+                    </Dropdown>
                 </Header>
-                <Layout style={{ marginTop:64 }}>
-                    <Sider width={200} className="site-layout-background"  style={{ position: 'fixed', zIndex: 1,height:'100%' }}>
+                <Layout style={{ marginTop: 64 }}>
+                    <Sider width={200} className="site-layout-background" style={{ position: 'fixed', zIndex: 1, height: '100%' }}>
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={[defaultSelectedKeys]}
-                            style={{ 
+                            selectedKeys={[this.props.location.pathname]}
+                            style={{
                                 height: '100%',
                                 borderRight: 0,
-                                borderRight:'1px solid #dadada'
+                                borderRight: '1px solid #dadada'
                             }}
                             onClick={this.switchsubnav}
                         >
                             {
                                 subnav.map(item => {
                                     return (
-                                    <Menu.Item key={item.pathname}>{item.subnavtitle}</Menu.Item>
+                                        <Menu.Item key={item.pathname}>{item.subnavtitle}</Menu.Item>
                                     )
                                 })
                             }
@@ -76,4 +101,4 @@ class Frame extends Component {
         )
     }
 }
-export default withRouter(Frame)
+export default Frame
