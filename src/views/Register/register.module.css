@@ -1,0 +1,21 @@
+
+.loginwrap{
+    background: url("../../static/images/login_bg.jpg") no-repeat center;
+    background-size: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.loginwrapper{
+    position: fixed;
+    left: 50%;
+    top:50%;
+    width:30%;
+    transform: translate3d(-50%,-50%,0);
+    border: 1px solid #dadada;
+    padding:20px;
+    background: rgba(255,255,255,.4);
+    border-radius: 10px;
+}

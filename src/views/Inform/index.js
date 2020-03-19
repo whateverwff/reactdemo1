@@ -1,40 +1,49 @@
 import React, { Component } from 'react'
 import { Card, Button, List, Avatar } from 'antd'
 import { connect } from "react-redux"
-import {changeinformtitle,changeinformtitleAsync} from "../../actions/inform_action"
+import {changeinformtitle,changeinformtitleAsync,setAllRead,setReadById} from "../../actions/inform_action"
 
 const mapStoteToProp = (store) => {
+    const {test,list=[]} = store.infrom;
     return {
-        ...store.infrom
+        test,
+        list
     }
 }
 
 
-@connect(mapStoteToProp,{changeinformtitle,changeinformtitleAsync})
+@connect(mapStoteToProp,{changeinformtitle,changeinformtitleAsync,setAllRead,setReadById})
 class Inform extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        const data = [
-            {
-                title: 'Ant Design Title 1',
-            },
-            {
-                title: 'Ant Design Title 2',
-            },
-            {
-                title: 'Ant Design Title 3',
-            },
-            {
-                title: 'Ant Design Title 4',
-            },
-        ];
         return (
             <div>
-                <Card title={this.props.test} extra={<Button type="primary"  onClick={this.props.changeinformtitle.bind(this,"新的标题")}>全部已读</Button>}>
+                <Card
+                    title={this.props.test}
+                    extra={
+                        <Button
+                            type="primary"
+                            disabled={this.props.list.every(item => item.isread)}
+                            onClick={this.props.setAllRead.bind(this)}
+                        >全部已读</Button>
+                    }>
                     <List
                         itemLayout="horizontal"
-                        dataSource={data}
+                        dataSource={this.props.list}
                         renderItem={item => (
-                            <List.Item extra={<Button type="default" onClick={this.props.changeinformtitleAsync.bind(this,"异步调用")}>设为已读</Button>}>
+                            <List.Item
+                                extra={
+                                    item.isread ? null :
+                                    <Button
+                                        type="default"
+                                        onClick={
+                                            this.props.setReadById.bind(this,item.id)
+                                        }
+                                    >设为已读</Button>
+                                }>
                                 <List.Item.Meta
                                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                                     title={<a href="https://ant.design">{item.title}</a>}

@@ -1,4 +1,11 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { connect } from "react-redux"
+import {loginexit} from "../../actions/login_action"
+import {
+    adminRouter
+} from '../../routes'
+
 import {
     Layout,
     Menu,
@@ -9,18 +16,20 @@ import {
 } from 'antd';
 
 import { UserOutlined, LaptopOutlined, NotificationOutlined, DownOutlined } from '@ant-design/icons';
-import { withRouter } from 'react-router-dom'
-import {
-    adminRouter
-} from '../../routes'
 
 import "./frame.less"
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
+const mapStateToProps = state => {
+    return {
+        list:state.infrom.list,
+        ...state.login_reducer
+    }
+}
 
-
+@connect(mapStateToProps,{loginexit})
 @withRouter
 class Frame extends Component {
     constructor(props) {
@@ -28,6 +37,7 @@ class Frame extends Component {
         this.state = {
             defaultSelectedKeys: ''
         }
+        console.log(this.props);
     }
 
     switchsubnav = ({ item, key, keyPath, domEvent }) => {
@@ -41,10 +51,10 @@ class Frame extends Component {
         const menu = (
             <Menu onClick={this.onclickmsgdropdown}>
                 <Menu.Item key="/admin/inform">
-                    <Badge dot>我的通知</Badge>
+                    <Badge dot={Boolean(this.props.list.filter(item => !item.isread).length)}>我的通知</Badge>
                 </Menu.Item>
                 <Menu.Item key="/admin/center">个人中心</Menu.Item>
-                <Menu.Item key="/login">退出登录</Menu.Item>
+                <Menu.Item key="/login" onClick={this.props.loginexit}>退出登录</Menu.Item>
             </Menu>
         );
         return (
@@ -55,8 +65,8 @@ class Frame extends Component {
                     </div>
                     <Dropdown overlay={menu}>
                         <div className="ant-dropdown-link">
-                            <Badge count={5} offset={['6','0']}>
-                                你好! admin <DownOutlined />
+                            <Badge count={this.props.list.filter(item => !item.isread).length} offset={['6','0']}>
+                                你好! {this.props.username} <DownOutlined />
                             </Badge>
                             
                         </div>
@@ -67,11 +77,7 @@ class Frame extends Component {
                         <Menu
                             mode="inline"
                             selectedKeys={[this.props.location.pathname]}
-                            style={{
-                                height: '100%',
-                                borderRight: 0,
-                                borderRight: '1px solid #dadada'
-                            }}
+                            style={{height: '100%',borderRight: '1px solid #dadada'}}
                             onClick={this.switchsubnav}
                         >
                             {
