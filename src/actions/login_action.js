@@ -1,4 +1,5 @@
-import actionType from "./actionType";
+import actionType from "./actionType"
+import { login } from "../service/httprequest";
 
 
 const startlogin = () => {
@@ -29,6 +30,9 @@ const loginerr = () => {
 export const loginrequest = (userinfo) =>{
     return dispath =>{
         dispath(startlogin());
+        // login(userinfo).then(resq => {
+        //     console.log(resq);
+        // })
         setTimeout(function () {
             userinfo.islogin = true;
             if(userinfo.remember){

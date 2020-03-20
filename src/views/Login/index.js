@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Form, Input, Button, Checkbox, Card, Spin} from 'antd'
 import {Link, Redirect} from "react-router-dom"
 import {connect} from "react-redux"
+import axios from "axios"
 import {
     loginrequest
 } from "../../actions/login_action"
@@ -24,6 +25,9 @@ const mapStateToProps = (state) => {
 @connect(mapStateToProps, {loginrequest})
 class Login extends Component {
     onFinish = values => {
+        axios.post("http://localhost:8080/login",values).then(resq => {
+            console.log(resq);
+        })
         this.props.loginrequest(values);
     }
     onFinishFailed = errorInfo => {
@@ -57,7 +61,7 @@ class Login extends Component {
 
                                     <Form.Item
                                         label="密码"
-                                        name="password"
+                                        name="psd"
                                         rules={[{required: true, message: '请输入密码!'}]}
                                     >
                                         <Input.Password/>

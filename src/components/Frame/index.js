@@ -37,7 +37,6 @@ class Frame extends Component {
         this.state = {
             defaultSelectedKeys: ''
         }
-        console.log(this.props);
     }
 
     switchsubnav = ({ item, key, keyPath, domEvent }) => {

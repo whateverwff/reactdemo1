@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from "axios"
 import { Form, Input, Button, Card,message } from 'antd'
 import {Link} from "react-router-dom"
 
@@ -13,10 +14,13 @@ const tailLayout = {
 }
 export default class Register extends Component {
     onFinish = values => {
-        if(values.password != values.alignpassword){
+        if(values.psd != values.alignpassword){
             message.error("输入的密码不一致! 请重新输入");
             return
         }
+        axios.post('http://localhost:8080/register',values).then(resq=>{
+            console.log(resq);
+        })
         console.log('Success:', values);
     }
     onFinishFailed = errorInfo => {
@@ -44,7 +48,7 @@ export default class Register extends Component {
 
                         <Form.Item
                             label="密码"
-                            name="password"
+                            name="psd"
                             rules={[{ required: true, message: '请输入你的密码' }]}
                         >
                             <Input.Password />
