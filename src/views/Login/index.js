@@ -25,10 +25,13 @@ const mapStateToProps = (state) => {
 @connect(mapStateToProps, {loginrequest})
 class Login extends Component {
     onFinish = values => {
-        axios.post("http://localhost:8080/login",values).then(resq => {
-            console.log(resq);
-        })
         this.props.loginrequest(values);
+        // axios.post("http://localhost:8080/login",{
+        //     ...values
+        // })
+        // .then(resp => {
+        //     console.log(resp)
+        // })
     }
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
@@ -77,8 +80,8 @@ class Login extends Component {
                                     </Form.Item>
                                 </Form>
                             </Spin>
-                            <div>
-                                <Link to="/register">去注册</Link>
+                            <div style={{textAlign:'right'}}>
+                                <Link to="/register">无账号? 去注册</Link>
                             </div>
                         </Card>
                     </div>

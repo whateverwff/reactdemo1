@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Card, Button, List, Avatar } from 'antd'
 import { connect } from "react-redux"
-import {changeinformtitle,changeinformtitleAsync,setAllRead,setReadById} from "../../actions/inform_action"
+import {
+    changeinformtitle,
+    changeinformtitleAsync,
+    setAllRead,
+    setReadById,
+    getList
+} from "../../actions/inform_action"
 
 const mapStoteToProp = (store) => {
     const {test,list=[]} = store.infrom;
@@ -12,10 +18,11 @@ const mapStoteToProp = (store) => {
 }
 
 
-@connect(mapStoteToProp,{changeinformtitle,changeinformtitleAsync,setAllRead,setReadById})
+@connect(mapStoteToProp,{changeinformtitle,changeinformtitleAsync,setAllRead,setReadById,getList})
 class Inform extends Component {
     constructor(props) {
         super(props);
+        this.props.getList();
     }
 
     render() {
@@ -40,13 +47,13 @@ class Inform extends Component {
                                     <Button
                                         type="default"
                                         onClick={
-                                            this.props.setReadById.bind(this,item.id)
+                                            this.props.setReadById.bind(this,item.cid)
                                         }
                                     >设为已读</Button>
                                 }>
                                 <List.Item.Meta
                                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                    title={<a href="https://ant.design">{item.title}</a>}
+                            title={<a href="https://ant.design">{item.cname} - {item.cid}</a>}
                                     description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                                 />
                             </List.Item>

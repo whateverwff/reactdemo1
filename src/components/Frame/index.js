@@ -5,7 +5,7 @@ import {loginexit} from "../../actions/login_action"
 import {
     adminRouter
 } from '../../routes'
-
+import {httprequest} from "../../service/httprequest"
 import {
     Layout,
     Menu,

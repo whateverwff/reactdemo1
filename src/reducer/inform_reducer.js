@@ -3,31 +3,17 @@ import actionType from "../actions/actionType"
 const initState = {
     test: "我的通知列表",
     list: [
-        {
-            id: "1",
-            title: 'Ant Design Title 1',
-            isread: false
-        },
-        {
-            id: "2",
-            title: 'Ant Design Title 2',
-            isread: true
-        },
-        {
-            id: "3",
-            title: 'Ant Design Title 3',
-            isread: false
-        },
-        {
-            id: "4",
-            title: 'Ant Design Title 4',
-            isread: false
-        }
+        
     ]
 }
 
 export default (state = initState, action) => {
     switch (action.type) {
+        case actionType.SET_LIST:
+            return {
+                ...state,
+                list:action.payload.list
+            }
         case actionType.CHANGE_INFORM_TITLE:
             return {
                 ...state,
@@ -46,8 +32,8 @@ export default (state = initState, action) => {
             return {
                 ...state,
                 list:state.list.map(item => {
-                    if(item.id === action.payload.id){
-                        item.isread = true;
+                    if(item.cid === action.payload.cid){
+                        item.isread = 1;
                     }
                     return item;
                 })

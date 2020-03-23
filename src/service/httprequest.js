@@ -1,19 +1,21 @@
-import {
-    service,
-    service1
-} from "./service"
+import axios from "axios"
+import {baseURL} from "./config"
+
+export const httprequest = axios.create({
+    baseURL
+})
 
 
-const httpservice = (url,data = {},method = "POST") => {
-    return service.post(url,data)
-}
-const post = (url,data) => {
-    return service1.post(url,data);
-}
+httprequest.interceptors.request.use(config => {
+    return config;
+})
 
 
-
-//登录
-export const login = (data) => {
-    return  service1("/login",data);
-}
+httprequest.interceptors.response.use(
+    resp => {
+        return resp
+    },
+    error =>{
+        console.log(error)
+    }
+)

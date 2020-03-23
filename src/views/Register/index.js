@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import axios from "axios"
 import { Form, Input, Button, Card,message } from 'antd'
-import {Link} from "react-router-dom"
+import {Link,withRouter} from "react-router-dom"
 
 import css from "./register.module.css"
+import { httprequest } from '../../service/httprequest'
 
 const layout = {
     labelCol: { span: 6 },
@@ -12,16 +12,27 @@ const layout = {
 const tailLayout = {
     wrapperCol: { offset: 6, span: 18 },
 }
-export default class Register extends Component {
+
+@withRouter
+class Register extends Component {
+    constructor (){
+        super();
+        
+    }
     onFinish = values => {
         if(values.psd != values.alignpassword){
             message.error("输入的密码不一致! 请重新输入");
             return
         }
-        axios.post('http://localhost:8080/register',values).then(resq=>{
-            console.log(resq);
-        })
-        console.log('Success:', values);
+        httprequest.post("/register",values)
+            .then(resp => {
+                if(resp.data.code == 200){
+                    this.props.history.push({
+                        pathname:"/login"
+                    })
+                    message.info("注册成功，请登录！")
+                }
+            })
     }
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
@@ -66,13 +77,15 @@ export default class Register extends Component {
                                 注册
                             </Button>
                         </Form.Item>
-                        <Form.Item style={{textAlign:'right'}}>
-                            <Link to="/login">去登录</Link>
-                        </Form.Item>
                     </Form>
+                        <div style={{textAlign:'right'}}>
+                            <Link to="/login">去登录</Link>
+                        </div>
                     </Card>
                 </div>
             </div>
         )
     }
 }
+
+export default Register

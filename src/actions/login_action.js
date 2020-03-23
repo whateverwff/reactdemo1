@@ -1,50 +1,57 @@
 import actionType from "./actionType"
-import { login } from "../service/httprequest";
+import { httprequest } from "../service/httprequest"
+import { message } from "antd"
+
 
 
 const startlogin = () => {
     return {
-        type:actionType.START_LOGIN,
-        payload:{
-            loginloading:true
+        type: actionType.START_LOGIN,
+        payload: {
+            loginloading: true
         }
     }
 }
 const loginsuc = (userinfo) => {
     return {
-        type:actionType.LOGIN_SUCCESS,
-        payload:{
+        type: actionType.LOGIN_SUCCESS,
+        payload: {
             userinfo
         }
     }
 }
 const loginerr = () => {
     return {
-        type:actionType.LOGIN_ERR,
-        payload:{
-            loginloading:false
+        type: actionType.LOGIN_ERR,
+        payload: {
+            loginloading: false
         }
     }
 }
 
-export const loginrequest = (userinfo) =>{
-    return dispath =>{
+export const loginrequest = (userinfo) => {
+    return dispath => {
         dispath(startlogin());
-        // login(userinfo).then(resq => {
-        //     console.log(resq);
-        // })
-        setTimeout(function () {
-            userinfo.islogin = true;
-            if(userinfo.remember){
-                window.localStorage.setItem("userinfo",JSON.stringify(userinfo))
-            }else{
-                window.sessionStorage.setItem("userinfo",JSON.stringify(userinfo))
+        httprequest.post("/login", userinfo).then(resp => {
+            if (resp.data.code === 200) {
+                dispath(loginsuc(userinfo))
+                userinfo.islogin = true;
+                if (userinfo.remember) {
+                    window.localStorage.setItem("userinfo", JSON.stringify(userinfo))
+                } else {
+                    window.sessionStorage.setItem("userinfo", JSON.stringify(userinfo))
+                }
+            } else {
+                dispath(loginerr())
+                message.info(resp.data.errorMsg)
             }
-            dispath(loginsuc(userinfo))
-        },2000)
+        }, error => {
+            dispath(loginerr())
+            message.info(error.errorMsg)
+        })
     }
 }
-export const loginexit = () =>{
+export const loginexit = () => {
     return dispath => {
         window.localStorage.removeItem("userinfo");
         window.sessionStorage.removeItem("userinfo");
