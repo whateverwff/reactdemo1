@@ -4,7 +4,8 @@ import {
     Tables,
     List,
     Inform,
-    Center
+    Center,
+    ChooseCourse
 } from "../views"
 
 
@@ -23,7 +24,7 @@ export const mainRouter = [{
 export const adminRouter = [{
     pathname:"/admin/inform",
     component:Inform,
-    subnavtitle:"我的通知"
+    subnavtitle:"我的课程"
 },{
     pathname:"/admin/tables",
     component:Tables,
@@ -35,4 +36,8 @@ export const adminRouter = [{
 },{
     pathname:"/admin/center",
     component:Center
+},{
+    pathname:"/admin/addcourse",
+    component:ChooseCourse,
+    subnavtitle:"选择课程"
 }]

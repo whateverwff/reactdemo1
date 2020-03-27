@@ -16,6 +16,6 @@ httprequest.interceptors.response.use(
         return resp
     },
     error =>{
-        console.log(error)
+        return Promise.reject(error)
     }
 )

@@ -31,6 +31,8 @@ class Register extends Component {
                         pathname:"/login"
                     })
                     message.info("注册成功，请登录！")
+                }else if(resp.data.code == 400){
+                    message.info(resp.data.errorMsg);
                 }
             })
     }

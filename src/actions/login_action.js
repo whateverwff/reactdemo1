@@ -34,7 +34,7 @@ export const loginrequest = (userinfo) => {
         dispath(startlogin());
         httprequest.post("/login", userinfo).then(resp => {
             if (resp.data.code === 200) {
-                dispath(loginsuc(userinfo))
+                dispath(loginsuc(userinfo));
                 userinfo.islogin = true;
                 if (userinfo.remember) {
                     window.localStorage.setItem("userinfo", JSON.stringify(userinfo))
@@ -43,11 +43,11 @@ export const loginrequest = (userinfo) => {
                 }
             } else {
                 dispath(loginerr())
-                message.info(resp.data.errorMsg)
+                message.error(resp.data.errorMsg)
             }
         }, error => {
             dispath(loginerr())
-            message.info(error.errorMsg)
+            message.error(error.message)
         })
     }
 }

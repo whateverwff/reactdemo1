@@ -50,7 +50,7 @@ class Frame extends Component {
         const menu = (
             <Menu onClick={this.onclickmsgdropdown}>
                 <Menu.Item key="/admin/inform">
-                    <Badge dot={Boolean(this.props.list.filter(item => !item.isread).length)}>我的通知</Badge>
+                    <Badge dot={Boolean(this.props.list.filter(item => !item.isread).length)}>我的课程</Badge>
                 </Menu.Item>
                 <Menu.Item key="/admin/center">个人中心</Menu.Item>
                 <Menu.Item key="/login" onClick={this.props.loginexit}>退出登录</Menu.Item>
@@ -67,7 +67,6 @@ class Frame extends Component {
                             <Badge count={this.props.list.filter(item => !item.isread).length} offset={['6','0']}>
                                 你好! {this.props.username} <DownOutlined />
                             </Badge>
-                            
                         </div>
                     </Dropdown>
                 </Header>

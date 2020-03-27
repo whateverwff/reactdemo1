@@ -35,7 +35,7 @@ class Inform extends Component {
                             type="primary"
                             disabled={this.props.list.every(item => item.isread)}
                             onClick={this.props.setAllRead.bind(this)}
-                        >全部已读</Button>
+                        >全部已学</Button>
                     }>
                     <List
                         itemLayout="horizontal"
@@ -47,13 +47,13 @@ class Inform extends Component {
                                     <Button
                                         type="default"
                                         onClick={
-                                            this.props.setReadById.bind(this,item.cid)
+                                            this.props.setReadById.bind(this,item.cid,18)
                                         }
-                                    >设为已读</Button>
+                                    >设为已学</Button>
                                 }>
                                 <List.Item.Meta
                                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                            title={<a href="https://ant.design">{item.cname} - {item.cid}</a>}
+                            title={<a href="#">{item.cname} - {item.cid}</a>}
                                     description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                                 />
                             </List.Item>
