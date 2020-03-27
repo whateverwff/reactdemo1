@@ -25,6 +25,8 @@ class Inform extends Component {
         this.props.getList();
     }
 
+
+    //render
     render() {
         return (
             <div>
