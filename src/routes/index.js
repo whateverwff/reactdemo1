@@ -26,6 +26,10 @@ export const adminRouter = [{
     component:Inform,
     subnavtitle:"我的课程"
 },{
+    pathname:"/admin/addcourse",
+    component:ChooseCourse,
+    subnavtitle:"选择课程"
+},{
     pathname:"/admin/tables",
     component:Tables,
     subnavtitle:"表格"
@@ -36,8 +40,4 @@ export const adminRouter = [{
 },{
     pathname:"/admin/center",
     component:Center
-},{
-    pathname:"/admin/addcourse",
-    component:ChooseCourse,
-    subnavtitle:"选择课程"
 }]

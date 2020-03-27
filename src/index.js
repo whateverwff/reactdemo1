@@ -19,7 +19,6 @@ render(
         <Router>
             <Switch>
                 <Route path="/admin" render={() => {
-                    //这里可以验证用户有无登录
                     return <App />
                 }} />
                 {
