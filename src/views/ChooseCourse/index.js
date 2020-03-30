@@ -35,6 +35,9 @@ class ChooseCourse extends Component {
                         indeterminate:checkedList.length != 0
                     })
                 }
+            },
+            err => {
+                message.error(err.message)
             })
     }
 
