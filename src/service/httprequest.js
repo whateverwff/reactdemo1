@@ -13,7 +13,7 @@ httprequest.interceptors.request.use(config => {
 
 httprequest.interceptors.response.use(
     resp => {
-        if(resp.status == 200 && resp.data.success){
+        if(resp.status == 200){
             return resp.data;
         }else{
             return Promise.reject(resp.data);

@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import qs from "qs"
 import { Checkbox,Button,message } from 'antd'
+import {withRouter} from "react-router-dom"
 import {httprequest} from "../../service/httprequest"
 
 const CheckboxGroup = Checkbox.Group
 
+@withRouter
 class ChooseCourse extends Component {
     constructor(props) {
         super(props);
@@ -22,10 +24,10 @@ class ChooseCourse extends Component {
             .then(resp => {
                     var plainarr = [];
                     var checkedList = [];
+
                     resp.data.forEach(item => {
                         plainarr.push(item.cname);
-
-                        if(item.subscription){
+                        if(item.subscribe == 1){
                             checkedList.push(item.cname)
                         }
                     })
@@ -62,21 +64,20 @@ class ChooseCourse extends Component {
             message.error("请选择你的课程！");
             return
         }
-        // let
-        let arr = this.state.courseList.filter(items => {
+        let arr = [];
+        this.state.courseList.filter(items => {
             for(let i=0; i< this.state.checkedList.length; i++){
                 if(this.state.checkedList[i] == items.cname) {
-                    items.subscribe = 1;
-                    return true;
+                    arr.push(items.cid);
                     break;
                 }
             }
         })
-
-        httprequest.post("/student/setcourse",{id:18,list:arr})
+        httprequest.post("/student/userCourses",{id:18,list:arr})
             .then(resp => {
-                if(resp.status === 200){
-                    message.info("选择课程")
+                if(resp.success){
+                    message.info("选择课程成功！！！");
+                    this.props.history.push("/admin/inform");
                 }
             })
     }

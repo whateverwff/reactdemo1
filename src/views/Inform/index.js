@@ -42,24 +42,24 @@ class Inform extends Component {
                     <List
                         itemLayout="horizontal"
                         dataSource={this.props.list}
-                        renderItem={item => (
-                            <List.Item
+                        renderItem={item => {
+                            return item.subscribe ? (<List.Item
                                 extra={
                                     item.isread ? null :
-                                    <Button
-                                        type="default"
-                                        onClick={
-                                            this.props.setReadById.bind(this,item.cid,18)
-                                        }
-                                    >设为已学</Button>
+                                        <Button
+                                            type="default"
+                                            onClick={
+                                                this.props.setReadById.bind(this,item.cid,18)
+                                            }
+                                        >设为已学</Button>
                                 }>
                                 <List.Item.Meta
                                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                            title={<a href="#">{item.cname} - {item.cid}</a>}
+                                    title={<a href="#">{item.cname} - {item.cid}</a>}
                                     description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                                 />
-                            </List.Item>
-                        )}
+                            </List.Item>) : <></>;
+                        }}
                     />
                 </Card>
             </div>

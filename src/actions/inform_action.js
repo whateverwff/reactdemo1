@@ -38,7 +38,7 @@ export const setReadById = (cid) => {
             .then(resp => {
                 dispatch(getList())
             }, err => {
-
+                message.error(err.message)
             })
     }
 }
