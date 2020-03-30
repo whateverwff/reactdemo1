@@ -1,5 +1,7 @@
 import actionType from "./actionType"
 import {httprequest} from "../service/httprequest"
+import qs from "qs"
+import {message} from "antd"
 
 //改变标题
 export const changeinformtitle = (title) => {
@@ -44,11 +46,11 @@ export const setReadById = (cid) => {
 //获取列表
 export const getList = () => {
     return dispatch => {
-        httprequest.get("/student/userquery?uid=" + 18)
+        httprequest.post("/student/userquery",qs.stringify({id:18}))
             .then(resp => {
                 dispatch(setList(resp.data))
             }, err => {
-
+                message.error(err.message)
             })
     }
 }
