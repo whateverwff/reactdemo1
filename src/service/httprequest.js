@@ -13,7 +13,11 @@ httprequest.interceptors.request.use(config => {
 
 httprequest.interceptors.response.use(
     resp => {
-        return resp
+        if(resp.status == 200 && resp.data.success){
+            return resp.data;
+        }else{
+            return Promise.reject(resp.data);
+        }
     },
     error =>{
         //响应错误提示

@@ -46,7 +46,7 @@ export const setReadById = (cid) => {
 //获取列表
 export const getList = () => {
     return dispatch => {
-        httprequest.post("/student/userquery",qs.stringify({id:18}))
+        httprequest.post("/student/query",qs.stringify({id:18}))
             .then(resp => {
                 dispatch(setList(resp.data))
             }, err => {

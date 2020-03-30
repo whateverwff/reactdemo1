@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import qs from "qs"
 import { Checkbox,Button,message } from 'antd'
 import {httprequest} from "../../service/httprequest"
 
@@ -17,14 +18,14 @@ class ChooseCourse extends Component {
     }
 
     componentDidMount() {
-        httprequest.get("/student/query")
+        httprequest.post("/student/getallcoursebyid",qs.stringify({id:18}))
             .then(resp => {
-                if(resp.status === 200){
                     var plainarr = [];
                     var checkedList = [];
                     resp.data.forEach(item => {
                         plainarr.push(item.cname);
-                        if(item.subscribe){
+
+                        if(item.subscription){
                             checkedList.push(item.cname)
                         }
                     })
@@ -34,7 +35,6 @@ class ChooseCourse extends Component {
                         courseList:resp.data,
                         indeterminate:checkedList.length != 0
                     })
-                }
             },
             err => {
                 message.error(err.message)
