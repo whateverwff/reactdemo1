@@ -1,5 +1,6 @@
 import actionType from "./actionType"
 import {httprequest} from "../service/httprequest"
+import {message} from "antd"
 
 //改变标题
 export const changeinformtitle = (title) => {
@@ -48,7 +49,7 @@ export const getList = () => {
             .then(resp => {
                 dispatch(setList(resp.data))
             }, err => {
-
+                message.error(err.message)
             })
     }
 }
