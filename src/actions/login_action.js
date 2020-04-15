@@ -33,17 +33,12 @@ export const loginrequest = (userinfo) => {
     return dispath => {
         dispath(startlogin());
         httprequest.post("/login", userinfo).then(resp => {
-            if (resp.data.code === 200) {
-                dispath(loginsuc(userinfo));
-                userinfo.islogin = true;
-                if (userinfo.remember) {
-                    window.localStorage.setItem("userinfo", JSON.stringify(userinfo))
-                } else {
-                    window.sessionStorage.setItem("userinfo", JSON.stringify(userinfo))
-                }
+            dispath(loginsuc(userinfo));
+            userinfo.islogin = true;
+            if (userinfo.remember) {
+                window.localStorage.setItem("userinfo", JSON.stringify(userinfo))
             } else {
-                dispath(loginerr())
-                message.error(resp.data.errorMsg)
+                window.sessionStorage.setItem("userinfo", JSON.stringify(userinfo))
             }
         }, error => {
             dispath(loginerr())
