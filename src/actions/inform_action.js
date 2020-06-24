@@ -23,7 +23,7 @@ export const changeinformtitleAsync = (title) => {
 //全部已读
 export const setAllRead = () => {
     return dispatch => {
-        httprequest.get("/student/setreadstates?cid="+ '' + "&uid=18")
+        httprequest.get("/student/setreadstates?cid="+ '' + "&uid=1")
             .then(resp => {
                 dispatch(getList())
             }, err => {
@@ -34,7 +34,7 @@ export const setAllRead = () => {
 //通过id设置已读状态
 export const setReadById = (cid) => {
     return dispatch => {
-        httprequest.get("/student/setreadstates?cid=" + cid + "&uid=18")
+        httprequest.get("/student/setreadstates?cid=" + cid + "&uid=1")
             .then(resp => {
                 dispatch(getList())
             }, err => {
@@ -46,7 +46,7 @@ export const setReadById = (cid) => {
 //获取列表
 export const getList = () => {
     return dispatch => {
-        httprequest.post("/student/query",qs.stringify({id:18}))
+        httprequest.post("/student/query",qs.stringify({id:1}))
             .then(resp => {
                 dispatch(setList(resp.data))
             }, err => {

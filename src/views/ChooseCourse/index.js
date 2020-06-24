@@ -20,7 +20,7 @@ class ChooseCourse extends Component {
     }
 
     componentDidMount() {
-        httprequest.post("/student/getallcoursebyid",qs.stringify({id:18}))
+        httprequest.post("/student/getallcoursebyid",qs.stringify({id:1}))
             .then(resp => {
                     var plainarr = [];
                     var checkedList = [];
@@ -73,7 +73,7 @@ class ChooseCourse extends Component {
                 }
             }
         })
-        httprequest.post("/student/userCourses",{id:18,list:arr})
+        httprequest.post("/student/userCourses",{id:1,list:arr})
             .then(resp => {
                 if(resp.success){
                     message.info("选择课程成功！！！");
